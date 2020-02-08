@@ -36,4 +36,4 @@ pull: .clasp.json
 .PHONY: lint
 lint: ## Run tslint
 lint:
-	tslint --fix src/Code.ts
+	tslint --fix src/*.ts

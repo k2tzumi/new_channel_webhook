@@ -1,3 +1,6 @@
+import Channel = require("./Channel");
+import ChannelCreatedEvent = require("./ChannelCreatedEvent");
+
 const properties = PropertiesService.getScriptProperties();
 const VERIFICATION_TOKEN: string = properties.getProperty("VERIFICATION_TOKEN");
 
@@ -40,7 +43,7 @@ function doPost(e): GoogleAppsScript.Content.TextOutput {
   );
 }
 
-function eventHandler(event: string[]) {
+function eventHandler(event: ChannelCreatedEvent) {
   if (event.type === "channel_created") {
     return channelCreated(event);
   }
@@ -53,16 +56,17 @@ const NOTIFICATION_MESSAGE: string =
   properties.getProperty("NOTIFICATION_MESSAGE") ||
   "A public channel created :point_right: ";
 
-function channelCreated(event: string[]) {
-  const channel = event.channel;
-  const message = `${NOTIFICATION_MESSAGE} ${channelLink(channel)}`;
+function channelCreated(event: ChannelCreatedEvent) {
+  const message: string = `${NOTIFICATION_MESSAGE} ${channelLink(
+    event.channel
+  )}`;
 
   postSlack(message);
 
   return { posted: message };
 }
 
-function channelLink(channel: string[]): string {
+function channelLink(channel: Channel): string {
   return `<##${channel.id}|#${channel.name}>`;
 }
 
