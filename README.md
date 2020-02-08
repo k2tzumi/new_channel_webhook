@@ -1,8 +1,8 @@
 What is this?
 ==============================
 
- It's a web-hook application that notifies you when a public channel is created with Slack.
- This application runs as a web app within a Google app script.
+ It's a web-hook application that notifies you when a public channel is created with Slack.  
+ This application runs as a web app within a Google app script.  
  [Slack API] (When you register as an endpoint for a https://api.slack.com/apps) event subscription, you are notified of the name of the channel created for the Slack channel.
 
 REQUIREMENTS
