@@ -12,6 +12,9 @@
         "prettier": true,
         "interface-name": [
             false
+        ],
+        "no-console": [
+            false
         ]
     },
     "rulesDirectory": [

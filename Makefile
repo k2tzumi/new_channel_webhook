@@ -32,3 +32,8 @@ open: .clasp.json
 pull: ## Pull Google apps scripts
 pull: .clasp.json
 	clasp pull
+
+.PHONY: lint
+lint: ## Run tslint
+lint:
+	tslint --fix src/Code.ts

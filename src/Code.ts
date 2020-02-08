@@ -12,8 +12,8 @@ function doPost(e): GoogleAppsScript.Content.TextOutput {
   switch (postData.type) {
     case "url_verification":
       console.log({
-        message: "url_verification called.",
-        data: postData.challenge
+        data: postData.challenge,
+        message: "url_verification called."
       });
       res = { challenge: postData.challenge };
       break;
@@ -23,8 +23,8 @@ function doPost(e): GoogleAppsScript.Content.TextOutput {
         res = eventHandler(postData.event);
       } else {
         console.warn({
-          message: "event_callback duplicate called.",
-          data: postData.event_id
+          data: postData.event_id,
+          message: "event_callback duplicate called."
         });
         res = { duplicated: postData.event_id };
       }
@@ -83,14 +83,14 @@ const ICON: string = ":new:";
 
 function postSlack(message: string): void {
   const jsonData = {
-    username: USER_NAME,
     icon_emoji: ICON,
-    text: message
+    text: message,
+    username: USER_NAME
   };
 
   const options: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
-    method: "post",
     contentType: "application/json",
+    method: "post",
     payload: JSON.stringify(jsonData)
   };
 
