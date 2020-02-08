@@ -1,5 +1,5 @@
-import Channel = require("./Channel");
-import ChannelCreatedEvent = require("./ChannelCreatedEvent");
+import Channel from "./Channel";
+import ChannelCreatedEvent from "./ChannelCreatedEvent";
 
 const properties = PropertiesService.getScriptProperties();
 const VERIFICATION_TOKEN: string = properties.getProperty("VERIFICATION_TOKEN");
@@ -57,17 +57,11 @@ const NOTIFICATION_MESSAGE: string =
   "A public channel created :point_right: ";
 
 function channelCreated(event: ChannelCreatedEvent) {
-  const message: string = `${NOTIFICATION_MESSAGE} ${channelLink(
-    event.channel
-  )}`;
+  const message: string = `${NOTIFICATION_MESSAGE} #${event.channel.name}`;
 
   postSlack(message);
 
   return { posted: message };
-}
-
-function channelLink(channel: Channel): string {
-  return `<##${channel.id}|#${channel.name}>`;
 }
 
 function isEventIdProceeded(eventId: string): boolean {
@@ -88,6 +82,7 @@ const ICON: string = ":new:";
 function postSlack(message: string): void {
   const jsonData = {
     icon_emoji: ICON,
+    link_names: true,
     text: message,
     username: USER_NAME
   };
@@ -99,4 +94,16 @@ function postSlack(message: string): void {
   };
 
   UrlFetchApp.fetch(POST_URL, options);
+}
+
+function testEventHandler() {
+  const event: ChannelCreatedEvent = new ChannelCreatedEvent();
+  event.type = "channel_created";
+  event.channel = new Channel();
+  event.channel.id = "C024BE91L";
+  event.channel.name = "fun";
+  event.channel.created = 1360782804;
+  event.channel.creator = "U024BE7LH";
+
+  eventHandler(event);
 }
