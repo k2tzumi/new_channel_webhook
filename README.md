@@ -8,7 +8,7 @@ What is this?
 REQUIREMENTS
 --------------------
 - `npm`
-- [clasp](https://github.com/google/clasp)
+- [clasp](https://github.com/google/clasp)  
 `npm i @google/clasp -g`
 - `make`
 
