@@ -44,13 +44,16 @@ function eventHandler(event: string[]) {
 const NOTIFICATION_MESSAGE: string = properties.getProperty('NOTIFICATION_MESSAGE') || 'A public channel created :point_right: '
 
 function channelCreated(event: string[]) {
-  let channel_name = event["channel"]["name"]
-  console.log(channel_name)
-  let message = `${NOTIFICATION_MESSAGE} #${channel_name}`
+  let channel = event["channel"]
+  let message = `${NOTIFICATION_MESSAGE} ${channelLink(channel)}`
 
   postSlack(message)
 
   return { 'posted': message }
+}
+
+function channelLink(channel: string[]): string {
+  return `<##${channel["id"]}|#${channel["name"]}>`
 }
 
 function isEventIdProceeded(eventId: string): boolean {
